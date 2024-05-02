@@ -13,9 +13,9 @@ const Appointments = () => {
   const getAppointmentsData = async () => {
     try {
       return await axios.post(
-        "http://localhost:5000/api/user/get-appointments-by-user-id",
-        { 
-            userId: user._id,
+        "https://medical-app-api.onrender.com/api/user/get-appointments-by-user-id",
+        {
+          userId: user._id,
         },
         {
           headers: {
@@ -26,27 +26,27 @@ const Appointments = () => {
     } catch (error) {
       toast.error("An error occurred while fetching appointments.");
     }
-  }
+  };
 
   const getDoctorsInfo = async () => {
     try {
       return await axios.get(
-        "http://localhost:5000/api/user/get-all-doctors",
+        "https://medical-app-api.onrender.com/api/user/get-all-doctors"
       );
     } catch (error) {
       toast.error("An error occurred while fetching appointments.");
-    } 
-  }
+    }
+  };
 
   useEffect(() => {
     getAppointmentsData()
       .then((res) => setAppointments(res.data.data[0]))
       .catch((e) => console.log(e));
 
-    getDoctorsInfo().then(res => setDoctors(res.data.data)).catch(e => console.log(e))
+    getDoctorsInfo()
+      .then((res) => setDoctors(res.data.data))
+      .catch((e) => console.log(e));
   }, [user]);
-
-
 
   // Colonnes du tableau avec des fonctions de rendu pour formater les données
   const columns = [
@@ -59,37 +59,32 @@ const Appointments = () => {
       title: "Téléphone",
       dataIndex: "phoneNumber",
       render: (text, record) => {
-        const doctor = doctors?.find(doctor => doctor._id == text);
-        return (<span>{doctor?.phoneNumber}</span>)
-      }
+        const doctor = doctors?.find((doctor) => doctor._id == text);
+        return <span>{doctor?.phoneNumber}</span>;
+      },
     },
     {
       title: "Name",
       dataIndex: "name",
       render: (text, record) => {
-        const doctor = doctors?.find(doctor => doctor._id == text);
-        return (<span>{`${doctor?.firstName} ${doctor?.lastName}`}</span>)
-      }
+        const doctor = doctors?.find((doctor) => doctor._id == text);
+        return <span>{`${doctor?.firstName} ${doctor?.lastName}`}</span>;
+      },
     },
     {
       title: "Date",
       dataIndex: "date",
       render: (text, record) => (
-        <span>
-          {moment(record.date).format("DD-MM-YYYY")}{" "}
-        </span>
+        <span>{moment(record.date).format("DD-MM-YYYY")} </span>
       ),
     },
     {
       title: "Time",
       dataIndex: "time",
       render: (text, record) => (
-        <span>
-          {moment(record.time).format("HH:mm")}
-        </span>
+        <span>{moment(record.time).format("HH:mm")}</span>
       ),
     },
-   
   ];
 
   return (
@@ -115,8 +110,10 @@ const Appointments = () => {
           {appointments.map((record) => (
             <tr key={record._id}>
               {columns.map((column) => (
-                
-                <td key={column.dataIndex} className="px-6 py-4 whitespace-nowrap">
+                <td
+                  key={column.dataIndex}
+                  className="px-6 py-4 whitespace-nowrap"
+                >
                   {column.render(record.doctorId, record)}
                 </td>
               ))}

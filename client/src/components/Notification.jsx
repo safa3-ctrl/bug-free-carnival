@@ -11,7 +11,7 @@ function Notifications() {
   const markAllAsSeen = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/user/mark-all-notifications-as-seen",
+        "https://medical-app-api.onrender.com/api/user/mark-all-notifications-as-seen",
         {
           userId: user._id,
         },
@@ -34,7 +34,7 @@ function Notifications() {
   const deleteAll = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/user/delete-all-notifications",
+        "https://medical-app-api.onrender.com/api/user/delete-all-notifications",
         {
           userId: user._id,
         },
@@ -62,7 +62,7 @@ function Notifications() {
   ) => {
     try {
       const result = await axios.post(
-        "http://localhost:5000/api/user/accept-appointment",
+        "https://medical-app-api.onrender.com/api/user/accept-appointment",
         {
           userId,
           appointmentId,
@@ -89,7 +89,7 @@ function Notifications() {
   const acceptDoctor = async (accept, doctorId, userId, notificationId) => {
     try {
       const result = await axios.post(
-        "http://localhost:5000/api/admin/accept-doctor",
+        "https://medical-app-api.onrender.com/api/admin/accept-doctor",
         {
           userId,
           doctorId,
@@ -116,7 +116,7 @@ function Notifications() {
   const getNotifications = async () => {
     try {
       return await axios.post(
-        "http://localhost:5000/api/user/get-notifications-by-user",
+        "https://medical-app-api.onrender.com/api/user/get-notifications-by-user",
         {
           userId: user._id,
         },
@@ -149,9 +149,7 @@ function Notifications() {
           <button
             type="button"
             className={`px-4 py-2 font-medium text-gray-500 ${
-              activeTab === 0
-                ? "text-primary border-b-2 border-primary"
-                : ""
+              activeTab === 0 ? "text-primary border-b-2 border-primary" : ""
             }`}
             onClick={() => setActiveTab(0)}
           >
@@ -160,9 +158,7 @@ function Notifications() {
           <button
             type="button"
             className={`px-4 py-2 font-medium text-gray-500 ${
-              activeTab === 1
-                ? "text-primary border-b-2b border-primary"
-                : ""
+              activeTab === 1 ? "text-primary border-b-2b border-primary" : ""
             }`}
             onClick={() => setActiveTab(1)}
           >

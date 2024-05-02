@@ -5,18 +5,22 @@ import { useSelector } from "react-redux";
 
 function Notifications() {
   const { user } = useSelector((state) => state.user);
-  const [activeTab, setActiveTab] = useState(0); 
-  const [notifications,setNotifications] = useState([]);
+  const [activeTab, setActiveTab] = useState(0);
+  const [notifications, setNotifications] = useState([]);
 
   const markAllAsSeen = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/user/mark-all-notifications-as-seen", {
-        userId: user._id,
-      }, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      const response = await axios.post(
+        "https://medical-app-api.onrender.com/api/user/mark-all-notifications-as-seen",
+        {
+          userId: user._id,
         },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       if (response.data.success) {
         toast.success(response.data.message);
       } else {
@@ -29,13 +33,17 @@ function Notifications() {
 
   const deleteAll = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/user/delete-all-notifications", {
-        userId: user._id,
-      }, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      const response = await axios.post(
+        "https://medical-app-api.onrender.com/api/user/delete-all-notifications",
+        {
+          userId: user._id,
         },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       if (response.data.success) {
         toast.success(response.data.message);
       } else {
@@ -49,7 +57,7 @@ function Notifications() {
   const getNotifications = async () => {
     try {
       return await axios.post(
-        "http://localhost:5000/api/user/get-notifications-by-user",
+        "https://medical-app-api.onrender.com/api/user/get-notifications-by-user",
         {
           userId: user._id,
         },
@@ -60,12 +68,14 @@ function Notifications() {
         }
       );
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   };
 
   useEffect(() => {
-    getNotifications().then(res =>setNotifications(res.data.data)).catch(e=> console.log(e))
+    getNotifications()
+      .then((res) => setNotifications(res.data.data))
+      .catch((e) => console.log(e));
   }, []);
 
   return (
@@ -80,9 +90,7 @@ function Notifications() {
           <button
             type="button"
             className={`px-4 py-2 font-medium text-gray-500 ${
-              activeTab === 0
-                ? "text-primary border-b-2 border-primary"
-                : ""
+              activeTab === 0 ? "text-primary border-b-2 border-primary" : ""
             }`}
             onClick={() => setActiveTab(0)}
           >
@@ -91,9 +99,7 @@ function Notifications() {
           <button
             type="button"
             className={`px-4 py-2 font-medium text-gray-500 ${
-              activeTab === 1
-                ? "text-primary border-b-2b border-primary"
-                : ""
+              activeTab === 1 ? "text-primary border-b-2b border-primary" : ""
             }`}
             onClick={() => setActiveTab(1)}
           >
@@ -113,18 +119,19 @@ function Notifications() {
           </div>
           {notifications.map((notification) => (
             <>
-            {
-              notification.status !== 'seen' &&
-            <div
-              key={notification._id}
-              className="bg-white p-4 rounded-lg shadow-md mb-4"
-            >
-              <div className="flex">
-                <div className="text-gray-700 font-bold">{notification.title}: &nbsp;</div>
-                <div className="text-gray-700">{notification.content}</div>
-              </div>
-            </div>
-            }
+              {notification.status !== "seen" && (
+                <div
+                  key={notification._id}
+                  className="bg-white p-4 rounded-lg shadow-md mb-4"
+                >
+                  <div className="flex">
+                    <div className="text-gray-700 font-bold">
+                      {notification.title}: &nbsp;
+                    </div>
+                    <div className="text-gray-700">{notification.content}</div>
+                  </div>
+                </div>
+              )}
             </>
           ))}
         </div>
@@ -134,29 +141,34 @@ function Notifications() {
           <div className="flex justify-end mb-4">
             <h1
               className="text-primary cursor-pointer anchor"
-              onClick={() => deleteAll().then(res => console.log(res)).catch(e => console.log(e))}
+              onClick={() =>
+                deleteAll()
+                  .then((res) => console.log(res))
+                  .catch((e) => console.log(e))
+              }
             >
               Delete all
             </h1>
           </div>
-           {notifications.map((notification) => (
+          {notifications.map((notification) => (
             <>
-            {
-              notification.status === 'seen' &&
-            <div
-              key={notification._id}
-              className="bg-white p-4 rounded-lg shadow-md mb-4"
-            >
-              <div className="flex">
-                <div className="text-gray-700 font-bold">{notification.title}: &nbsp;</div>
-                <div className="text-gray-700">{notification.content}</div>
-              </div>
-            </div>
-            }
+              {notification.status === "seen" && (
+                <div
+                  key={notification._id}
+                  className="bg-white p-4 rounded-lg shadow-md mb-4"
+                >
+                  <div className="flex">
+                    <div className="text-gray-700 font-bold">
+                      {notification.title}: &nbsp;
+                    </div>
+                    <div className="text-gray-700">{notification.content}</div>
+                  </div>
+                </div>
+              )}
             </>
           ))}
         </div>
-        <Toaster/>
+        <Toaster />
       </div>
     </>
   );

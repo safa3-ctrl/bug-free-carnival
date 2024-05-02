@@ -32,7 +32,7 @@ const Register = () => {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/user/register",
+        "https://medical-app-api.onrender.com/api/user/register",
         data
       );
       if (response.data.success) {
@@ -61,7 +61,6 @@ const Register = () => {
             error={errors?.name?.message}
           />
           <Select
-            
             label="User type"
             {...register("userType")}
             error={errors?.userType?.message}
@@ -82,8 +81,11 @@ const Register = () => {
               },
             ]}
           />
-          <Input label="email" {...register("email")}
-           error={errors?.email?.message}/>
+          <Input
+            label="email"
+            {...register("email")}
+            error={errors?.email?.message}
+          />
           <Input
             label="password"
             type="password"
@@ -100,7 +102,7 @@ const Register = () => {
             </div>
           </div>
         </form>
-        <Toaster/>
+        <Toaster />
       </div>
     </div>
   );

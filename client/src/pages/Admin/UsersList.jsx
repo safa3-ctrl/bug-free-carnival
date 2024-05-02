@@ -11,7 +11,7 @@ function UsersList() {
     const getUsersData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/user/get-all-users",
+          "https://medical-app-api.onrender.com/api/user/get-all-users",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

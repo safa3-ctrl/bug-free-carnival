@@ -5,14 +5,14 @@ import moment from "moment";
 
 const DoctorsList = () => {
   const [doctors, setDoctors] = useState([]);
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const deleteDoctor = async (doctorId) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/admin/delete-doctor",
+        "https://medical-app-api.onrender.com/api/admin/delete-doctor",
         {
-          doctorId
+          doctorId,
         },
         {
           headers: {
@@ -22,7 +22,7 @@ const DoctorsList = () => {
       );
       if (response.data.success) {
         setDoctors(response.data.data);
-        setLoading(prev => !prev);
+        setLoading((prev) => !prev);
       } else {
         setUsers(response.data.data);
       }
@@ -35,7 +35,7 @@ const DoctorsList = () => {
     const getDoctorsData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/admin/get-all-doctors",
+          "https://medical-app-api.onrender.com/api/admin/get-all-doctors",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -122,7 +122,7 @@ const DoctorsList = () => {
                             className="bg-red-500 text-white p-4"
                             onClick={() => {
                               console.log("Blocking user:", doctor._id);
-                              deleteDoctor(doctor._id)
+                              deleteDoctor(doctor._id);
                             }}
                           >
                             Block

@@ -11,11 +11,14 @@ function DoctorAppointments() {
   const dispatch = useDispatch();
 
   // **Wrap handleError in useCallback to stabilize its reference:**
-  const handleError = useCallback((error) => {
-    console.error(error);
-    toast.error("An error occurred. Please try again later.");
-    dispatch(hideLoading()); // Hide loading indicator in case of errors
-  }, [dispatch]);
+  const handleError = useCallback(
+    (error) => {
+      console.error(error);
+      toast.error("An error occurred. Please try again later.");
+      dispatch(hideLoading()); // Hide loading indicator in case of errors
+    },
+    [dispatch]
+  );
 
   // **Include handleError in the dependency array of useEffect:**
   useEffect(() => {
@@ -49,7 +52,7 @@ function DoctorAppointments() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "http://localhost:5000/api/doctor/change-appointment-status",
+        "https://medical-app-api.onrender.com/api/doctor/change-appointment-status",
         { appointmentId: record._id, status: status },
         {
           headers: {
@@ -75,12 +78,16 @@ function DoctorAppointments() {
     {
       title: "ID",
       dataIndex: "_id",
-      render: (text, record) => <td className="px-6 py-4 whitespace-nowrap">{text}</td>,
+      render: (text, record) => (
+        <td className="px-6 py-4 whitespace-nowrap">{text}</td>
+      ),
     },
     {
       title: "Patient Name",
       dataIndex: "patient.name", // Assuming nested patient object
-      render: (text, record) => <td className="px-6 py-4 whitespace-nowrap">{text}</td>,
+      render: (text, record) => (
+        <td className="px-6 py-4 whitespace-nowrap">{text}</td>
+      ),
     },
     // ... Include any other relevant columns for your application
     {
@@ -98,11 +105,17 @@ function DoctorAppointments() {
       render: (text, record) => (
         <td className="px-6 py-4 whitespace-nowrap">
           {record.status === "PENDING" ? (
-            <span className="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-md">Pending</span>
+            <span className="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-md">
+              Pending
+            </span>
           ) : record.status === "CONFIRMED" ? (
-            <span className="bg-green-200 text-green-800 px-2 py-1 rounded-md">Confirmed</span>
+            <span className="bg-green-200 text-green-800 px-2 py-1 rounded-md">
+              Confirmed
+            </span>
           ) : (
-            <span className="bg-red-200 text-red-800 px-2 py-1 rounded-md">Cancelled</span>
+            <span className="bg-red-200 text-red-800 px-2 py-1 rounded-md">
+              Cancelled
+            </span>
           )}
         </td>
       ),
@@ -124,13 +137,18 @@ function DoctorAppointments() {
   ];
   return (
     <Layout>
-      <h1 className="text-2xl font-bold  mt-[12px] mb-[12px] ml-[12px] text-primary">Appointments</h1>
+      <h1 className="text-2xl font-bold  mt-[12px] mb-[12px] ml-[12px] text-primary">
+        Appointments
+      </h1>
       <div className="w-full overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <head className="bg-gray-50">
             <tr>
               {columns.map((column) => (
-                <th key={column.dataIndex} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th
+                  key={column.dataIndex}
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
                   {column.title}
                 </th>
               ))}

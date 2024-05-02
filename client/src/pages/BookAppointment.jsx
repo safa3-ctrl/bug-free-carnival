@@ -35,7 +35,9 @@ const BookAppointment = () => {
 
   const getDoctors = async () => {
     try {
-      return await axios.get("http://localhost:5000/api/user/get-all-doctors");
+      return await axios.get(
+        "https://medical-app-api.onrender.com/api/user/get-all-doctors"
+      );
     } catch (e) {
       console.log(e);
     }
@@ -45,7 +47,7 @@ const BookAppointment = () => {
     console.log(data);
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/user/book-appointment",
+        "https://medical-app-api.onrender.com/api/user/book-appointment",
         {
           userId: user._id,
           doctorId: data.doctor,
@@ -82,7 +84,10 @@ const BookAppointment = () => {
   }, []);
 
   return (
-    <form className="p-8 flex flex-col gap-4 " onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="p-8 flex flex-col gap-4 "
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <Select
         error={errors?.doctor?.message}
         label="Doctor"
@@ -108,7 +113,7 @@ const BookAppointment = () => {
       <div className="flex justify-end">
         <Button type="submit">Envoyer</Button>
       </div>
-      <Toaster/>
+      <Toaster />
     </form>
   );
 };

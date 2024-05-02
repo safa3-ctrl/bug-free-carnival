@@ -40,7 +40,7 @@ function DoctorForm({ initialValues }) {
     console.log(data);
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/user/apply-doctor-account",
+        "https://medical-app-api.onrender.com/api/user/apply-doctor-account",
         {
           ...data,
           userId: user._id,
