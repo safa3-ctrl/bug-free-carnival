@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { RiHomeLine, RiUserLine, RiUserStarLine, RiFileListLine, RiHospitalLine, RiLogoutCircleLine } from 'react-icons/ri';
+
+
 
 function Layout({ children,className="" }) {
   const [collapsed, setCollapsed] = useState(false);
@@ -11,6 +14,7 @@ function Layout({ children,className="" }) {
   const location = useLocation();
 
   useEffect(() => {
+    console.log(user);
     const menuItems =
     user?.isAdmin === true
       ? [
@@ -25,7 +29,7 @@ function Layout({ children,className="" }) {
         ]
       : user?.isDoctor === true
       ? [
-          { name: "Home", path: "/dashboard", icon: "ri-home-line" },
+          { name:"Home", path: "/dashboard", icon: "ri-home-line" },
           {
             name: "Appointments",
             path: "/doctor/appointments",
@@ -41,7 +45,7 @@ function Layout({ children,className="" }) {
           { name: "Home", path: "/dashboard", icon: "ri-home-line" },
           {
             name: "Appointments",
-            path: "/appointments",
+            path: "/test",
             icon: "ri-file-list-line",
           },
           {
@@ -65,32 +69,66 @@ function Layout({ children,className="" }) {
       >
         {/* Sidebar header with logo and role */}
         <div className="py-4 px-6 text-white">
-          <h1 className="text-2xl font-bold">Logo</h1>
+          <img src="src/images/logo.png" alt=" " /> 
+           
         </div>
 
         {/* Sidebar navigation links */}
         <nav className="mt-4 px-4 pt-2 space-y-2 text-white">
-          {sidebarLinks.map((menu) => (
-            <Link
-              key={menu.path}
-              to={menu.path}
-              className={`block py-2 px-4 text-left hover:bg-primary ${
-                location.pathname === menu.path && "bg-primary"
-              }`}
-            >
-              <i className={`text-xl mr-2 ${menu.icon}`} /> {menu.name}
-            </Link>
-          ))}
+         {sidebarLinks.map((menu) => (
+  <Link
+    key={menu.path}
+    to={menu.path}
+    className={`block py-2 px-4 text-left hover:bg-[#383994] ${
+      location.pathname === menu.path && "bg-primary"
+    }`}
+    style={{ display: "flex", alignItems: "center" }} // Apply flexbox properties to the entire Link
+  >
+  
+  {menu.isDoctor && (
+  <>
+    {menu.icon === "ri-home-line" && <RiHomeLine className="text-xl mr-2" />}
+    {menu.icon === "ri-file-list-line" && <RiFileListLine className="text-xl mr-2" />}
+    {menu.icon === "ri-user-line" && <RiUserLine className="text-xl mr-2" />}
+    
+
+  </>
+  
+)} 
+  {menu.icon === "ri-home-line" && <RiHomeLine className="text-xl mr-2" />}
+  {menu.icon === "ri-user-line" && <RiUserLine className="text-xl mr-2" />}
+  {menu.icon === "ri-user-star-line" && <RiUserStarLine className="text-xl mr-2" />}
+  {menu.icon === "ri-file-list-line" && <RiFileListLine className="text-xl mr-2" />}
+  {menu.icon === "ri-hospital-line" && <RiHospitalLine className="text-xl mr-2" />}
+ 
+  {menu.isAdmin && (
+  <>
+    {menu.icon === "ri-home-line" && <RiHomeLine className="text-xl mr-2" />}
+    {menu.icon === "ri-user-star-line" && <RiUserStarLine className="text-xl mr-2" />}
+    {menu.icon === "ri-file-list-line" && <RiFileListLine className="text-xl mr-2" />}
+    {menu.icon === "ri-hospital-line" && <RiHospitalLine className="text-xl mr-2" />}
+  </>
+)}
+
+
+
+  {menu.name}
+  
+</Link>
+))}
+
           <Link
             to="/login"
-            className="block py-2 px-4 text-left hover:bg-primary"
+            className="block py-2 px-4 text-left hover:bg-[#383994]"
             onClick={() => {
               localStorage.clear();
               navigate("/login");
             }}
+            style={{ display: "flex", alignItems: "center" }} // Flexbox properties
           >
-            <i className="text-xl mr-2 ri-logout-circle-line" /> Logout
-          </Link>
+           <RiLogoutCircleLine className="text-xl mr-2" /> {/* Home icon with margin */}
+  Logout
+</Link>
         </nav>
       </div>
 

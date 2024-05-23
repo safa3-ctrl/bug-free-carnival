@@ -34,7 +34,7 @@ function Login() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "https://medical-app-api.onrender.com/api/user/login",
+        "http://localhost:5000/api/user/login",
         data
       );
       dispatch(hideLoading());

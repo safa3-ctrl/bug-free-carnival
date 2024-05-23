@@ -13,7 +13,7 @@ const Appointments = () => {
   const getAppointmentsData = async () => {
     try {
       return await axios.post(
-        "https://medical-app-api.onrender.com/api/user/get-appointments-by-user-id",
+        "http://localhost:5000/api/user/get-appointments-by-user-id",
         {
           userId: user._id,
         },
@@ -31,7 +31,7 @@ const Appointments = () => {
   const getDoctorsInfo = async () => {
     try {
       return await axios.get(
-        "https://medical-app-api.onrender.com/api/user/get-all-doctors"
+        "http://localhost:5000/api/user/get-all-doctors"
       );
     } catch (error) {
       toast.error("An error occurred while fetching appointments.");

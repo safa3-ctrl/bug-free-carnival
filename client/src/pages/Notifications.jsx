@@ -11,7 +11,7 @@ function Notifications() {
   const markAllAsSeen = async () => {
     try {
       const response = await axios.post(
-        "https://medical-app-api.onrender.com/api/user/mark-all-notifications-as-seen",
+        "http://localhost:5000/api/user/mark-all-notifications-as-seen",
         {
           userId: user._id,
         },
@@ -34,7 +34,7 @@ function Notifications() {
   const deleteAll = async () => {
     try {
       const response = await axios.post(
-        "https://medical-app-api.onrender.com/api/user/delete-all-notifications",
+        "http://localhost:5000/api/user/delete-all-notifications",
         {
           userId: user._id,
         },
@@ -57,7 +57,7 @@ function Notifications() {
   const getNotifications = async () => {
     try {
       return await axios.post(
-        "https://medical-app-api.onrender.com/api/user/get-notifications-by-user",
+        "http://localhost:5000/api/user/get-notifications-by-user",
         {
           userId: user._id,
         },

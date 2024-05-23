@@ -10,7 +10,7 @@ const DoctorsList = () => {
   const deleteDoctor = async (doctorId) => {
     try {
       const response = await axios.post(
-        "https://medical-app-api.onrender.com/api/admin/delete-doctor",
+        "http://localhost:5000/api/admin/delete-doctor",
         {
           doctorId,
         },
@@ -35,7 +35,7 @@ const DoctorsList = () => {
     const getDoctorsData = async () => {
       try {
         const response = await axios.get(
-          "https://medical-app-api.onrender.com/api/admin/get-all-doctors",
+          "http://localhost:5000/api/admin/get-all-doctors",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

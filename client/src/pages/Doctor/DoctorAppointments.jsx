@@ -52,7 +52,7 @@ function DoctorAppointments() {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "https://medical-app-api.onrender.com/api/doctor/change-appointment-status",
+        "http://localhost:5000/api/doctor/change-appointment-status",
         { appointmentId: record._id, status: status },
         {
           headers: {

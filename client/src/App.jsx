@@ -33,7 +33,7 @@ function App() {
         <Route path="/admin/doctorslist" element={<ProtectedRoute><DoctorsList /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/book-appointment/:doctorId" element={<ProtectedRoute><BookAppointment /></ProtectedRoute>} />
-        <Route path="/appointments" element={<ProtectedRoute><Appointments /></ProtectedRoute>} />
+        <Route path="/test" element={<ProtectedRoute><Appointments /></ProtectedRoute>} />
         <Route path="/doctor/appointments" element={<ProtectedRoute><Appointments /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
